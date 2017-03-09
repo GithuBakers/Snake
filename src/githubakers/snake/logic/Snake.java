@@ -48,5 +48,6 @@ class Snake {
         Point newlocation = preloction;
 	    body.add(HEAD,newlocation);
 	    body.remove(body.size()-1);
+	    
     }
 }
