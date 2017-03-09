@@ -18,7 +18,7 @@ class Snake {
 	ArrayList<Point> body = new ArrayList<Point>();//存放身体的坐标
 	
 	public void startgame(){
-		body.add(new Point(x, y));//初始化蛇头的坐标
+		body.add(new Point(x0, y0));//初始化蛇头的坐标
 	}
 	
 	public void getfood(){
