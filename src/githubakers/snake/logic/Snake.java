@@ -1,5 +1,7 @@
 package githubakers.snake.logic;
 
+import githubakers.snake.data.Position.Position;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -13,7 +15,7 @@ class Snake {
 	public int length = 1;//长度
 	private int vx = 5;//爬行速度
 	private int vy = 5;
-
+    ;
 	ArrayList<Point> body = new ArrayList<Point>();//存放身体的坐标
 	
 	public void startgame(){
@@ -27,4 +29,22 @@ class Snake {
 			body.add(HEAD, food.foodlocation);//原先食物的位置变成了头的位置			
 		}
 	}
+
+	public void move(){
+	    switch(Position.getDirection()){
+            case 'a':
+                x = x - vx;
+                break;
+            case 'w':
+                y = y + vy;
+                break;
+            case 's':
+                y = y - vy;
+                break;
+            case 'd':
+                x = x + vx;
+                break;
+        }
+
+    }
 }
