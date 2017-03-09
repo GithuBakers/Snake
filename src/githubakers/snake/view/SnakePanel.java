@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by xuxiangzhe on 2017/3/9.
+ * 表示界面代码根本就不知道怎样写，就是到处打补丁，小白形成自己的编程风格就好啦
  */
 public class SnakePanel extends JPanel implements Runnable,KeyListener{
     Thread t=new Thread(this);
@@ -30,12 +31,14 @@ public class SnakePanel extends JPanel implements Runnable,KeyListener{
     }
     @Override
     public void run(){
-        while(true){
+        while(!Thread.currentThread().isInterrupted()){
             snake=Snake.move();
             this.repaint();
             try {
-                TimeUnit.MILLISECONDS.sleep(1000);
-            } catch (InterruptedException e) {}
+                TimeUnit.MILLISECONDS.sleep(30);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
 
     }
@@ -53,9 +56,16 @@ public class SnakePanel extends JPanel implements Runnable,KeyListener{
         if(Judge.gameGoOn()){
 
         }else {
+            t.interrupt();
+            System.out.println("there");
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showConfirmDialog(SnakePanel.this,"GAME OVER",null,JOptionPane.ERROR_MESSAGE,JOptionPane.YES_OPTION);
 
-            JOptionPane.showConfirmDialog(this,"GAME OVER",null,JOptionPane.ERROR_MESSAGE,JOptionPane.YES_OPTION);
-            System.exit(0);
+                }
+            });
+
         }
 
     }
@@ -67,9 +77,11 @@ public class SnakePanel extends JPanel implements Runnable,KeyListener{
 
         Answer.refreshPosition(event.getKeyChar());
         repaint();
+
         if(Judge.gameGoOn()){
 
         }else {
+            t.interrupt();
             JOptionPane.showConfirmDialog(this,"GAME OVER",null,JOptionPane.ERROR_MESSAGE,JOptionPane.YES_OPTION);
             System.exit(0);
         }

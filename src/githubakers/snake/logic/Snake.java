@@ -1,41 +1,33 @@
 package githubakers.snake.logic;
 
 import githubakers.snake.data.Position.FinalData;
+import githubakers.snake.data.Position.Food;
 import githubakers.snake.data.Position.Position;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
-import static githubakers.snake.logic.Food.getFood;
-
 
 public class Snake {
-//	public static final int MAXLENGTH = 30;//身体的最长长度，达到之后可以算通关
-	public static final int HEAD = 0;//头固定的位置
-	public static int x0 = 100;//头的初始横坐标
-	public static int y0 = 100;//头的初始纵坐标
-//	public int length = 1;//长度
-//	private int vx = 5;//爬行速度
-//	private int vy = 5;
-	public static Point food=new Point(40,40);
+	private static final int HEAD = 0;//头固定的位置
+	private static int x0 = 100;//头的初始横坐标
+	private static int y0 = 100;//头的初始纵坐标
+	public static Point food=new Point(40,40);//这个地方因为懒所以没有改掉，本来应该写成private的，然后增加一个get方法
 
-	static ArrayList<Point> body =Position.getPosition();//存放身体的坐标
+	static ArrayList<Point> body =Position.getPosition();//访问数据
 	
 	public static void startgame(){
-		body.add(new Point(x0, y0));//初始化蛇头的坐标
+		body.add(new Point(x0, y0));
 		body.add(new Point(x0,y0+FinalData.INTERVAL));
 		body.add(new Point(x0,y0+2*FinalData.INTERVAL));
 		body.add(new Point(x0,y0+3*FinalData.INTERVAL));
 		body.add(new Point(x0,y0+4*FinalData.INTERVAL));
-		Position.setPosition(body);
+		Position.setPosition(body);//返回数据
 	}
 	
 	static boolean judgeFood(Point food){
 		boolean flag=false;
 		if(body.get(HEAD).x == food.x&&body.get(HEAD).y == food.y){//如果与食物相遇
-//			int length=body.size();
-//			length = length + 1;//吃了食物身体长度加一
-//			body.add(HEAD, food);//原先食物的位置变成了头的位置
 			flag=true;
 		}
 		return flag;
@@ -74,21 +66,15 @@ public class Snake {
 
 		body.add(HEAD,curLocation);
 		if(judgeFood(food)){
-			food=Food.getFood();
+			food= Food.getFood();
 		}else {
 			body.remove(body.size() - 1);
 		}
-
-
-
-
-
-
 	    Position.setPosition(body);
 	    return body;
     }
 
     public static ArrayList getLoc(){
 		return Position.getPosition();
-	}
+	}//这个方法是界面调用数据的途径，稍显多余，为了编码风格
 }

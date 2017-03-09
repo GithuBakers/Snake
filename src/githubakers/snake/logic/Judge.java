@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Judge {
     public static boolean gameGoOn(){
-        ArrayList<Point> source= Position.getPosition();
+        ArrayList<Point> source= Position.getPosition();//访问数据层
         Point head=source.get(0);
         Boolean flag=true;
         source.remove(0);
