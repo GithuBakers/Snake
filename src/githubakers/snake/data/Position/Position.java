@@ -9,17 +9,17 @@ import java.util.ArrayList;
 
 public class Position {
     private static ArrayList<Point> arrayList=new ArrayList<>();
-    private static char direction;//a=left;d=right.....
-    public static ArrayList getPosition(){
+    private static char direction='a';//a=left;d=right.....
+    synchronized public static ArrayList getPosition(){
         return arrayList;
     }
-    public static char getDirection(){
+    synchronized public static char getDirection(){
         return direction;
     }
-    public static void setPosition(ArrayList<Point> a){
+    synchronized public static void setPosition(ArrayList<Point> a){
         arrayList=a;
     }
-    public static void setDirection(char a){
+    synchronized public static void setDirection(char a){
         direction=a;
     }
 

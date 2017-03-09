@@ -1,11 +1,22 @@
 package githubakers.snake.logic;
 
+        import githubakers.snake.data.Position.FinalData;
+
         import java.awt.Point;
+        import java.util.Random;
+
+        import static githubakers.snake.data.Position.FinalData.WINDOW_SIZE;
 
 public class Food {
-    public int dx = (int)(300*Math.random());//横坐标
-    public int dy = (int)(400*Math.random());//纵坐标
-    public Point foodlocation = new Point(dx,dy);//食物的坐标
+    static Random random=new Random(47);
+    public static Point getFood(){
+        int x,y;
+        x=random.nextInt(WINDOW_SIZE);
+        x=(x/FinalData.INTERVAL)*FinalData.INTERVAL;
+        y=random.nextInt(WINDOW_SIZE);
+        y=(y/FinalData.INTERVAL)*FinalData.INTERVAL;
+        return new Point(x,y);
+    }
 
 }
 

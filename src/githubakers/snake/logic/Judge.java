@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by xuxiangzhe on 2017/3/9.
  */
 public class Judge {
-    public static boolean gameOver(){
+    public static boolean gameGoOn(){
         ArrayList<Point> source= Position.getPosition();
         Point head=source.get(0);
         Boolean flag=true;
@@ -20,6 +20,7 @@ public class Judge {
                 break;
             }
         }
+        source.add(0,head);
         return flag;
     }
 }

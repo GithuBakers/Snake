@@ -1,53 +1,88 @@
 package githubakers.snake.logic;
 
+import githubakers.snake.data.Position.FinalData;
 import githubakers.snake.data.Position.Position;
 
 import java.awt.Point;
 import java.util.ArrayList;
 
+import static githubakers.snake.logic.Food.getFood;
 
-class Snake {
-	public static final int MAXLENGTH = 30;//身体的最长长度，达到之后可以算通关
+
+public class Snake {
+//	public static final int MAXLENGTH = 30;//身体的最长长度，达到之后可以算通关
 	public static final int HEAD = 0;//头固定的位置
-	public int x0 = 100;//头的初始横坐标
-	public int y0 = 100;//头的初始纵坐标
-	public int length = 1;//长度
-	private int vx = 5;//爬行速度
-	private int vy = 5;
-    ;
-	ArrayList<Point> body = new ArrayList<Point>();//存放身体的坐标
+	public static int x0 = 100;//头的初始横坐标
+	public static int y0 = 100;//头的初始纵坐标
+//	public int length = 1;//长度
+//	private int vx = 5;//爬行速度
+//	private int vy = 5;
+	public static Point food=new Point(40,40);
+
+	static ArrayList<Point> body =Position.getPosition();//存放身体的坐标
 	
-	public void startgame(){
+	public static void startgame(){
 		body.add(new Point(x0, y0));//初始化蛇头的坐标
+		body.add(new Point(x0,y0+FinalData.INTERVAL));
+		body.add(new Point(x0,y0+2*FinalData.INTERVAL));
+		body.add(new Point(x0,y0+3*FinalData.INTERVAL));
+		body.add(new Point(x0,y0+4*FinalData.INTERVAL));
+		Position.setPosition(body);
 	}
 	
-	public void getfood(){
-		Food food = new Food();//新建一个食物出来
-		if(body.get(HEAD) == food.foodlocation){//如果与食物相遇
-			length = length + 1;//吃了食物身体长度加一
-			body.add(HEAD, food.foodlocation);//原先食物的位置变成了头的位置			
+	static boolean judgeFood(Point food){
+		boolean flag=false;
+		if(body.get(HEAD).x == food.x&&body.get(HEAD).y == food.y){//如果与食物相遇
+//			int length=body.size();
+//			length = length + 1;//吃了食物身体长度加一
+			body.add(HEAD, food);//原先食物的位置变成了头的位置
+			flag=true;
 		}
+		return flag;
 	}
 
-	public void move(){
-	    Point preloction = body.get(HEAD);
+	public static ArrayList move(){
+		Point preLocation=body.get(HEAD);
+	    Point curLocation=new Point();
+	    curLocation.x=preLocation.x;
+	    curLocation.y=preLocation.y;
 	    switch(Position.getDirection()){
             case 'a':
-                preloction.x =preloction.x  - vx;
+                curLocation.x-= FinalData.INTERVAL;
                 break;
             case 'w':
-                preloction.y =preloction.y  + vy;
+                curLocation.y -= FinalData.INTERVAL;
                 break;
             case 's':
-                preloction.y = preloction.y - vy;
+                curLocation.y += FinalData.INTERVAL;
                 break;
             case 'd':
-                preloction.x = preloction.x + vx;
+                curLocation.x += FinalData.INTERVAL;
                 break;
         }
-        Point newlocation = preloction;
-	    body.add(HEAD,newlocation);
+        if(curLocation.x>FinalData.WINDOW_SIZE){
+	    	curLocation.x-=FinalData.WINDOW_SIZE;
+		}else if(curLocation.x<0){
+        	curLocation.x+=FinalData.WINDOW_SIZE;
+		}
+
+		if(curLocation.y>FinalData.WINDOW_SIZE){
+			curLocation.y-=FinalData.WINDOW_SIZE;
+		}else if(curLocation.y<0){
+			curLocation.y+=FinalData.WINDOW_SIZE;
+		}
+		if(judgeFood(food)){
+			food=Food.getFood();
+		}
+
+
+	    body.add(HEAD,curLocation);
 	    body.remove(body.size()-1);
-	    
+	    Position.setPosition(body);
+	    return body;
     }
+
+    public static ArrayList getLoc(){
+		return Position.getPosition();
+	}
 }

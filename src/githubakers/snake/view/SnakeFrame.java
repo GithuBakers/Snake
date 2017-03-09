@@ -1,9 +1,12 @@
 package githubakers.snake.view;
 
 import githubakers.snake.data.Position.FinalData;
+import githubakers.snake.logic.Answer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by 15852 on 2017/3/9 0009.
@@ -25,6 +28,8 @@ public class SnakeFrame extends JFrame {
 
         //暂定背景为白
         setBackground(Color.white);
+        getContentPane().add(new SnakePanel());
+
     }
 
 
