@@ -9,9 +9,8 @@ import java.util.ArrayList;
 class Snake {
 	public static final int MAXLENGTH = 30;//身体的最长长度，达到之后可以算通关
 	public static final int HEAD = 0;//头固定的位置
-	public int x = 100;//头的初始横坐标
-	public int y = 100;//头的初始纵坐标	
-	public int tail = 0;//尾的位置
+	public int x0 = 100;//头的初始横坐标
+	public int y0 = 100;//头的初始纵坐标
 	public int length = 1;//长度
 	private int vx = 5;//爬行速度
 	private int vy = 5;
@@ -31,20 +30,24 @@ class Snake {
 	}
 
 	public void move(){
+	    Point preloction = body.get(HEAD);
 	    switch(Position.getDirection()){
             case 'a':
-                x = x - vx;
+                preloction.x =preloction.x  - vx;
                 break;
             case 'w':
-                y = y + vy;
+                preloction.y =preloction.y  + vy;
                 break;
             case 's':
-                y = y - vy;
+                preloction.y = preloction.y - vy;
                 break;
             case 'd':
-                x = x + vx;
+                preloction.x = preloction.x + vx;
                 break;
         }
+        Point newlocation = preloction;
+	    body.add(HEAD,newlocation);
+	    body.remove(body.size()-1);
 
     }
 }
