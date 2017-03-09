@@ -21,7 +21,7 @@ public class Answer {
         head.x=preHead.x;
         head.y=preHead.y;
         Point tail=former.get(former.size()-1);
-        former.remove(tail);
+
         switch(direction){
             case 'a':head.x-=HEIGHT;break;
             case 's':head.y+=HEIGHT;break;
@@ -42,12 +42,15 @@ public class Answer {
         }else if(head.y<0){
             head.y+=FinalData.WINDOW_SIZE;
         }
+        former.add(0,head);
         if(Snake.judgeFood(Snake.food)){
             Snake.food=Food.getFood();
+        }else {
+            former.remove(tail);
         }
 
 
-        former.add(0,head);
+
         Position.setPosition(former);
         Position.setDirection(direction);
         return former;

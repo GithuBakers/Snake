@@ -35,7 +35,7 @@ public class Snake {
 		if(body.get(HEAD).x == food.x&&body.get(HEAD).y == food.y){//如果与食物相遇
 //			int length=body.size();
 //			length = length + 1;//吃了食物身体长度加一
-			body.add(HEAD, food);//原先食物的位置变成了头的位置
+//			body.add(HEAD, food);//原先食物的位置变成了头的位置
 			flag=true;
 		}
 		return flag;
@@ -71,13 +71,19 @@ public class Snake {
 		}else if(curLocation.y<0){
 			curLocation.y+=FinalData.WINDOW_SIZE;
 		}
+
+		body.add(HEAD,curLocation);
 		if(judgeFood(food)){
 			food=Food.getFood();
+		}else {
+			body.remove(body.size() - 1);
 		}
 
 
-	    body.add(HEAD,curLocation);
-	    body.remove(body.size()-1);
+
+
+
+
 	    Position.setPosition(body);
 	    return body;
     }
