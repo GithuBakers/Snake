@@ -12,7 +12,8 @@ class Snake {
 	public int tail = 0;//尾的位置
 	public int length = 1;//长度
 	private int vx = 5;//爬行速度
-	private int vy = 5;	
+	private int vy = 5;
+
 	ArrayList<Point> body = new ArrayList<Point>();//存放身体的坐标
 	
 	public void startgame(){
